@@ -8,6 +8,16 @@ public class Customer implements Serializable {
     private Integer age;
     private String address;
 
+    public Customer() {
+    }
+
+    public Customer(Long id, String name, Integer age, String address) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.address = address;
+    }
+
     public Customer(String name, Integer age, String address) {
         this.id = null;
         this.name = name;

@@ -10,7 +10,7 @@ public class BaseTest {
 
     @Test
     public void testScan() {
-        ApplicationContext context = new AnnotationConfigApplicationContext(WebConfig.class);
+        ApplicationContext context = new AnnotationConfigApplicationContext(RootConfig.class);
 
         String[] beanDefinitionNames = context.getBeanDefinitionNames();
         for (String beanName : beanDefinitionNames) {
