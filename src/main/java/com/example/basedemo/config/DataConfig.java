@@ -1,10 +1,14 @@
 package com.example.basedemo.config;
 
+import com.example.basedemo.dao.mappers.CustomerMapper;
+import com.example.basedemo.pojo.Customer;
 import com.mysql.cj.jdbc.MysqlConnectionPoolDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.mapper.MapperFactoryBean;
+import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -33,7 +37,7 @@ public class DataConfig {
 
 
     @Bean
-    DataSource dataSource() {
+    public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(jdbcDriverClassName);
         dataSource.setUrl(jdbcUrl);
@@ -48,7 +52,7 @@ public class DataConfig {
      * @throws IOException
      */
     @Bean
-    SqlSessionFactoryBean sqlSessionFactoryBean() throws IOException {
+    public SqlSessionFactoryBean sqlSessionFactoryBean() throws IOException {
         ResourcePatternResolver resourcePatternResolver = new
                 PathMatchingResourcePatternResolver();
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
@@ -64,10 +68,18 @@ public class DataConfig {
      * @return
      */
     @Bean
-    org.apache.ibatis.session.Configuration mybatisConfig() {
+    public org.apache.ibatis.session.Configuration mybatisConfig() {
         org.apache.ibatis.session.Configuration config = new
                 org.apache.ibatis.session.Configuration();
         config.setMapUnderscoreToCamelCase(true);
         return config;
+    }
+
+    @Bean
+    public MapperScannerConfigurer mapperScannerConfigurer() {
+        MapperScannerConfigurer configurer = new MapperScannerConfigurer();
+        configurer.setBasePackage("com.example.basedemo.dao.mappers");
+        configurer.setSqlSessionFactoryBeanName("sqlSessionFactoryBean");
+        return configurer;
     }
 }

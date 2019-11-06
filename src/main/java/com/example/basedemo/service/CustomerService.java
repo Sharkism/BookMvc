@@ -18,19 +18,10 @@ public class CustomerService {
 //    public void setCustomerMapper(CustomerMapper customerMapper) {
 //        this.customerMapper = customerMapper;
 //    }
-    private SqlSessionFactory sqlSessionFactory;
-
-    @Autowired
-    public CustomerService(SqlSessionFactory factory) {
-        this.sqlSessionFactory = factory;
-    }
 
     public Customer getCustomer(Long id) {
-        SqlSession session = sqlSessionFactory.openSession();
-        CustomerMapper customerMapper = session.getMapper(CustomerMapper.class);
-        Customer customer = customerMapper.getCustomerById(id);
-        session.close();
-        return customer;
+        return null;
+//        return customerMapper.getCustomerById(id);
     }
 
     public void addCustomer(Customer customer) {
@@ -38,10 +29,7 @@ public class CustomerService {
     }
 
     public List<Customer> getCustomers() {
-        SqlSession session = sqlSessionFactory.openSession();
-        CustomerMapper customerMapper = session.getMapper(CustomerMapper.class);
-        List<Customer> list = customerMapper.getAllCustomers();
-        session.close();
-        return list;
+        return null;
+//        return customerMapper.getAllCustomers();
     }
 }
